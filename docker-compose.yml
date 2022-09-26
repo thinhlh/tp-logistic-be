@@ -10,7 +10,7 @@ services:
         DATABASE_USER: ${DATABASE_USER}
         DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     restart: always
-    container_name: thinh-nest-template-db
+    container_name: tp-logistic-db
     ports:
       - ${DATABASE_PORT}:5432
     environment:
