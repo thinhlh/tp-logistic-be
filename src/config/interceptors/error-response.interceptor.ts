@@ -5,11 +5,13 @@ export class ErrorResponseInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         return next
             .handle()
-            .pipe(catchError(err => throwError(() => ({
-                success: false,
-                message: err.message,
-                data: null,
-            }))));
+            .pipe(catchError(err => throwError(() => {
+                return ({
+                    success: false,
+                    message: err.message,
+                    data: null,
+                })
+            })));
     }
 
 }

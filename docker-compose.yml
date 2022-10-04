@@ -1,16 +1,24 @@
 version: '3'
 
 services:
-  db:
+  db_mogo:
+    build: 
+      context: .
+      dockerfile: ./docker/db/mongo/Dockerfile
+    container_name: tp-logistic-mongo-db
+    ports:
+      - 27017:27017
+    restart: always
+    environment:
+      - MONGO_INITDB_USERNAME=root
+      - MONGO_INITDB_PASSWORD=root
+
+  db_postgres:
     build:
       context: .
-      dockerfile: ./docker/db/Dockerfile
-      args:
-        DATABASE_NAME: ${DATABASE_NAME}
-        DATABASE_USER: ${DATABASE_USER}
-        DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      dockerfile: ./docker/db/postgres/Dockerfile
     restart: always
-    container_name: tp-logistic-db
+    container_name: tp-logistic-postgres-db
     ports:
       - ${DATABASE_PORT}:5432
     environment:

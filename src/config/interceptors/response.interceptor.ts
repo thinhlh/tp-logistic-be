@@ -9,7 +9,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, BaseResponse<T
             .pipe(map(data => ({
                 success: true,
                 message: null,
-                data: data,
+                data: data == undefined ? null : data,
             })));
     }
 

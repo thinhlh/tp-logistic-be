@@ -15,12 +15,10 @@ npm i
 
 ```
 ./scripts/start_server.sh env_name
-
 ```
 
 5. Stop the server
 
 ```
 ./scripts/stop_server.sh
-
 ```
