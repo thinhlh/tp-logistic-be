@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { instanceToInstance, plainToInstance } from "class-transformer";
 import { Model } from "mongoose";
-import { map } from "rxjs";
 import { PermissionResponse } from "./permission.response";
 import { Permission, PermissionDocument } from "./permission.schema";
 

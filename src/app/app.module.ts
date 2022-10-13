@@ -1,24 +1,18 @@
-import { Controller, Module, Post, Request, UseGuards } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule, JwtModuleAsyncOptions, JwtModuleOptions } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { PermissionController } from './permission/permission.controller';
+import { AuthModule } from './auth/auth.module';
 import { PermissionModule } from './permission/permission.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: `./env/${process.env.NODE_ENV}.env`,
     isGlobal: true,
   }),
-  MongooseModule.forRootAsync({
-    inject: [ConfigService],
-    useFactory: async (configService: ConfigService) => {
-      return ({
-        uri: `mongodb://${configService.get<string>("MONGO_HOST")}/${configService.get<number>("MONGO_DB")}`
-      })
-    }
-  }),
 
+  MongooseModule.forRoot(`mongodb://${process.env.MONGO_HOST}/${process.env.MONGO_DB}`),
 
     // TypeOrmModule.forRoot({
     //   host: process.env.DATABASE_HOST,
@@ -32,7 +26,9 @@ import { PermissionModule } from './permission/permission.module';
     //   autoLoadEntities: true,
     //   synchronize: process.env.NODE_ENV === 'dev' ? true : false
     // }),
+    AuthModule,
     PermissionModule,
+    UserModule,
   ],
 })
 export class AppModule { }
